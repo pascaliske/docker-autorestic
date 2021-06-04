@@ -1,0 +1,9 @@
+backends:
+  my-backend:
+    type: local
+    path: /var/lib/autorestic/backends/my-backend
+locations:
+  my-location:
+    from: /var/lib/autorestic/locations/my-location
+    to:
+      - my-backend

@@ -1,0 +1,26 @@
+{
+  "name": "docker-autorestic",
+  "description": "",
+  "license": "MIT",
+  "author": {
+    "name": "Pascal Iske",
+    "email": "info@pascaliske.dev",
+    "url": "https://pascaliske.dev"
+  },
+  "repository": {
+    "url": "https://github.com/pascaliske/docker-autorestic.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/pascaliske/docker-autorestic/issues"
+  },
+  "private": true,
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "husky": "^6.0.0"
+  }
+}

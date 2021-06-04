@@ -1,0 +1,57 @@
+# `pascaliske/docker-autorestic`
+
+> Docker image based on the awesome [cupcakearmy/autorestic](https://github.com/cupcakearmy/autorestic).
+
+[![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/pascaliske/autorestic/latest?style=flat-square)](https://hub.docker.com/r/pascaliske/autorestic) [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/pascaliske/autorestic/latest?style=flat-square)](https://hub.docker.com/r/pascaliske/autorestic) [![Docker Pulls](https://img.shields.io/docker/pulls/pascaliske/autorestic?style=flat-square)](https://hub.docker.com/r/pascaliske/autorestic) [![GitHub Tag](https://img.shields.io/github/v/tag/pascaliske/docker-autorestic?style=flat-square)](https://github.com/pascaliske/docker-autorestic) [![Build Status](https://img.shields.io/github/workflow/status/pascaliske/docker-autorestic/Image/master?label=build&style=flat-square)](https://github.com/pascaliske/docker-autorestic/actions) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [![GitHub Last Commit](https://img.shields.io/github/last-commit/pascaliske/docker-autorestic?style=flat-square)](https://github.com/pascaliske/docker-autorestic) [![Awesome Badges](https://img.shields.io/badge/badges-awesome-green.svg?style=flat-square)](https://github.com/Naereen/badges)
+
+## Usage
+
+Create an initial config file (`config.yml`):
+
+<!-- prettier-ignore -->
+```yml
+backends:
+  my-backend:
+    type: local
+    path: /var/lib/autorestic/backends/my-backend
+locations:
+  my-location:
+    from: /var/lib/autorestic/locations/my-location
+    to:
+      - my-backend
+```
+
+The following bind mounts are required:
+
+| Mount                           | Description                                                                   |
+| ------------------------------- | ----------------------------------------------------------------------------- |
+| `/etc/autorestic/config.yml`    | Your autorestic config file                                                   |
+| `/var/lib/autorestic/locations` | All locations defined as `from` in the config file                            |
+| `/var/lib/autorestic/backends`  | All backend paths defined in the config file (only needed for local backends) |
+
+Run a backup with the required volume mounts:
+
+```bash
+$ docker run \
+    -v $(pwd)/config.yml:/etc/autorestic/config.yml \ # config file
+    -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \ # autorestic backend
+    -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \ # autorestic location
+    pascaliske/autorestic:latest backup --location my-location
+```
+
+Restore a backup with the required volume mounts. The target folder should be bind mounted as well:
+
+```bash
+$ docker run \
+    -v $(pwd)/config.yml:/etc/autorestic/config.yml \ # config file
+    -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \ # autorestic backend
+    -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \ # autorestic location
+    -v $(pwd)/my-restore:/tmp/my-restore \ # target folder
+    pascaliske/autorestic:latest restore --location my-location --from my-backend --to /tmp/my-restore
+```
+
+For a list of all commands and their usage [visit the autorestic docs](https://autorestic.vercel.app/). An example usage can be [found here](./example/).
+
+## License
+
+[MIT](LICENSE.md) – © 2021 [Pascal Iske](https://pascaliske.dev)

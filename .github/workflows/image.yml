@@ -1,0 +1,49 @@
+name: Image
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    env:
+      IMAGE: pascaliske/autorestic
+      PLATFORMS: linux/amd64,linux/arm/v7,linux/arm64
+    steps:
+      # checkout
+      - uses: actions/checkout@v2.3.4
+
+      # setup qemu
+      - uses: docker/setup-qemu-action@v1
+        with:
+          platforms: all
+
+      # setup docker buildx
+      - uses: docker/setup-buildx-action@v1
+        id: buildx
+        with:
+          version: latest
+          install: true
+
+      # login to docker
+      - uses: docker/login-action@v1
+        if: github.event_name != 'pull_request'
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      # build & push image
+      - uses: docker/build-push-action@v2
+        id: build
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          platforms: ${{ env.PLATFORMS }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ env.IMAGE }}:latest
+
+      # output image digest
+      - name: Output image digest
+        run: |
+          echo ${{ steps.build.outputs.digest }}
