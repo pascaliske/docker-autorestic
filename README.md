@@ -39,9 +39,9 @@ Run a backup with the required volume mounts:
 ```bash
 $ docker run \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    -v $(pwd)/config.yml:/etc/autorestic/config.yml \ # config file
-    -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \ # autorestic backend
-    -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \ # autorestic location
+    -v $(pwd)/config.yml:/etc/autorestic/config.yml \
+    -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \
+    -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \
     pascaliske/autorestic:latest backup --location my-location
 ```
 
@@ -50,10 +50,10 @@ Restore a backup with the required volume mounts. The target folder should be bi
 ```bash
 $ docker run \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    -v $(pwd)/config.yml:/etc/autorestic/config.yml \ # config file
-    -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \ # autorestic backend
-    -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \ # autorestic location
-    -v $(pwd)/my-restore:/tmp/my-restore \ # target folder
+    -v $(pwd)/config.yml:/etc/autorestic/config.yml \
+    -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \
+    -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \
+    -v $(pwd)/my-restore:/tmp/my-restore \
     pascaliske/autorestic:latest restore --location my-location --from my-backend --to /tmp/my-restore
 ```
 
