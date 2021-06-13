@@ -29,8 +29,14 @@ RUN autorestic install
 FROM alpine:latest
 LABEL maintainer="info@pascaliske.dev"
 
+# install docker
+RUN apk add --update --no-cache docker openrc
+RUN rc-update add docker boot
+
+# volumes
+VOLUME [ "/var/run/docker.sock" "/etc/autorestic", "/var/lib/autorestic" ]
+
 # copy built binary
-VOLUME [ "/etc/autorestic", "/var/lib/autorestic" ]
 COPY --from=builder /usr/local/bin/autorestic /usr/local/bin/
 COPY --from=builder /usr/local/bin/restic /usr/local/bin/
 
