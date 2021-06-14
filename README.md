@@ -37,7 +37,7 @@ The following bind mounts are required:
 Run a backup with the required volume mounts:
 
 ```bash
-$ docker run \
+$ docker run --rm \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v $(pwd)/config.yml:/etc/autorestic/config.yml \
     -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \
@@ -48,7 +48,7 @@ $ docker run \
 Restore a backup with the required volume mounts. The target folder should be bind mounted as well:
 
 ```bash
-$ docker run \
+$ docker run --rm \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v $(pwd)/config.yml:/etc/autorestic/config.yml \
     -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \
