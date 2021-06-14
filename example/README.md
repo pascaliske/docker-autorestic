@@ -6,9 +6,9 @@ To prepare the backends you need to run the following command:
 
 ```bash
 $ docker run \
-    -v $(pwd)/config.yml:/etc/autorestic/config.yml \ # config file
-    -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \ # autorestic backend
-    -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \ # autorestic location
+    -v $(pwd)/config.yml:/etc/autorestic/config.yml \
+    -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \
+    -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \
     pascaliske/autorestic:latest check
 ```
 
@@ -18,9 +18,9 @@ To run a backup use the following command:
 
 ```bash
 $ docker run \
-    -v $(pwd)/config.yml:/etc/autorestic/config.yml \ # config file
-    -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \ # autorestic backend
-    -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \ # autorestic location
+    -v $(pwd)/config.yml:/etc/autorestic/config.yml \
+    -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \
+    -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \
     pascaliske/autorestic:latest backup --location my-location
 ```
 
@@ -30,9 +30,9 @@ To restore a backup use the following command:
 
 ```bash
 $ docker run \
-    -v $(pwd)/config.yml:/etc/autorestic/config.yml \ # config file
-    -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \ # autorestic backend
-    -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \ # autorestic location
+    -v $(pwd)/config.yml:/etc/autorestic/config.yml \
+    -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \
+    -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \
     -v $(pwd)/my-restore:/tmp/my-restore \ # target folder
     pascaliske/autorestic:latest restore --location my-location --from my-backend --to /tmp/my-restore
 ```
