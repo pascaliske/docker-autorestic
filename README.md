@@ -20,7 +20,7 @@ locations:
     to:
       - my-backend
   my-volume:
-    from: volume:my-container
+    from: /var/lib/autorestic/locations/my-volume
     to:
       - my-backend
 ```
@@ -32,16 +32,23 @@ The following bind mounts are required:
 | `/etc/autorestic/config.yml`    | Your autorestic configuration file.                                                  | Required |
 | `/var/lib/autorestic/locations` | All locations defined as `from` in the config file.                                  | Required |
 | `/var/lib/autorestic/backends`  | All `path`s defined for backends with `type: local` in the config file.              | Required |
-| `/var/run/docker.sock`          | To use autorestic's built in support for docker volumes the docker socket is needed. | Optional |
+
+> Note: To backup volumes you can directly mount them in `/var/lib/autorestic/locations` and reference them as normal folder in the config file:
+>
+> ```bash
+> docker run --rm \
+>   -v my-volume:/var/lib/autorestic/locations/my-volume \
+>   pascaliske/autorestic:latest backup --location my-volume
+> ```
 
 Run a backup with the required volume mounts:
 
 ```bash
 $ docker run --rm \
-    -v /var/run/docker.sock:/var/run/docker.sock \
     -v $(pwd)/config.yml:/etc/autorestic/config.yml \
     -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \
     -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \
+    -v my-volume:/var/lib/autorestic/locations/my-volume \
     pascaliske/autorestic:latest backup --location my-location
 ```
 
@@ -49,10 +56,10 @@ Restore a backup with the required volume mounts. The target folder should be bi
 
 ```bash
 $ docker run --rm \
-    -v /var/run/docker.sock:/var/run/docker.sock \
     -v $(pwd)/config.yml:/etc/autorestic/config.yml \
     -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \
     -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \
+    -v my-volume:/var/lib/autorestic/locations/my-volume \
     -v $(pwd)/my-restore:/tmp/my-restore \
     pascaliske/autorestic:latest restore --location my-location --from my-backend --to /tmp/my-restore
 ```
