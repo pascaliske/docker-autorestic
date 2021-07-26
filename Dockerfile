@@ -29,6 +29,9 @@ RUN autorestic install
 FROM alpine:latest
 LABEL maintainer="info@pascaliske.dev"
 
+# environment
+ENV RESTIC_CACHE_DIR=/etc/autorestic/cache
+
 # volumes
 VOLUME [ "/etc/autorestic", "/var/lib/autorestic" ]
 

@@ -27,11 +27,12 @@ locations:
 
 The following bind mounts are required:
 
-| Mount                           | Description                                                                          |          |
-| ------------------------------- | ------------------------------------------------------------------------------------ | -------- |
-| `/etc/autorestic/config.yml`    | Your autorestic configuration file.                                                  | Required |
-| `/var/lib/autorestic/locations` | All locations defined as `from` in the config file.                                  | Required |
-| `/var/lib/autorestic/backends`  | All `path`s defined for backends with `type: local` in the config file.              | Required |
+| Mount                           | Description                                                             |          |
+| ------------------------------- | ----------------------------------------------------------------------- | -------- |
+| `/etc/autorestic/cache`         | Your restic cache folder.                                               | Optional |
+| `/etc/autorestic/config.yml`    | Your autorestic configuration file.                                     | Required |
+| `/var/lib/autorestic/locations` | All locations defined as `from` in the config file.                     | Required |
+| `/var/lib/autorestic/backends`  | All `path`s defined for backends with `type: local` in the config file. | Required |
 
 > Note: To backup volumes you can directly mount them in `/var/lib/autorestic/locations` and reference them as normal folder in the config file:
 >
@@ -46,6 +47,7 @@ Run a backup with the required volume mounts:
 ```bash
 $ docker run --rm \
     -v $(pwd)/config.yml:/etc/autorestic/config.yml \
+    -v $(pwd)/cache:/etc/autorestic/cache \
     -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \
     -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \
     -v my-volume:/var/lib/autorestic/locations/my-volume \
@@ -57,6 +59,7 @@ Restore a backup with the required volume mounts. The target folder should be bi
 ```bash
 $ docker run --rm \
     -v $(pwd)/config.yml:/etc/autorestic/config.yml \
+    -v $(pwd)/cache:/etc/autorestic/cache \
     -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \
     -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \
     -v my-volume:/var/lib/autorestic/locations/my-volume \
