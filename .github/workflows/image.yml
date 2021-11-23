@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - master
+    tags:
+      - v*
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
@@ -19,12 +24,26 @@ jobs:
           REPOSITORY: ${{ github.repository }}
 
       # checkout
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
 
       # setup qemu
       - uses: docker/setup-qemu-action@v1
         with:
           platforms: all
+
+      # setup docker metadata
+      - uses: docker/metadata-action@v3
+        id: metadata
+        with:
+          images: |
+            ghcr.io/${{ steps.image-name.outputs.image }}
+            ${{ steps.image-name.outputs.image }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.0.') }}
+            type=semver,pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
 
       # setup docker buildx
       - uses: docker/setup-buildx-action@v1
@@ -55,9 +74,8 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           platforms: ${{ env.PLATFORMS }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: |
-            ghcr.io/${{ steps.image-name.outputs.image }}:latest
-            ${{ steps.image-name.outputs.image }}:latest
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
 
       # output image digest
       - name: Output image digest

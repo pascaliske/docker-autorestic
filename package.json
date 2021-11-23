@@ -1,6 +1,7 @@
 {
   "name": "docker-autorestic",
   "description": "",
+  "version": "0.0.0",
   "license": "MIT",
   "author": {
     "name": "Pascal Iske",
@@ -16,11 +17,15 @@
   },
   "private": true,
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "version": "bump --yes package.json",
+    "changelog": "standard-changelog"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
-    "husky": "^6.0.0"
+    "@rstacruz/bump-cli": "^2.0.1",
+    "husky": "^6.0.0",
+    "standard-changelog": "^2.0.27"
   }
 }
