@@ -6,6 +6,16 @@
 
 ## Usage
 
+To use this image pull it from one of the following registries:
+
+```bash
+# docker hub
+docker pull pascaliske/autorestic
+
+# github container registry
+docker pull ghcr.io/pascaliske/autorestic
+```
+
 Create an initial config file (`config.yml`):
 
 <!-- prettier-ignore -->

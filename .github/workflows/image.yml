@@ -9,9 +9,15 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     env:
-      IMAGE: pascaliske/autorestic
       PLATFORMS: linux/amd64,linux/arm/v7,linux/arm64
     steps:
+      # build image name
+      - name: Build image name
+        id: image-name
+        run: echo "::set-output name=image::${REPOSITORY//docker-/}"
+        env:
+          REPOSITORY: ${{ github.repository }}
+
       # checkout
       - uses: actions/checkout@v2.3.4
 
@@ -27,12 +33,20 @@ jobs:
           version: latest
           install: true
 
-      # login to docker
+      # login to docker hub
       - uses: docker/login-action@v1
         if: github.event_name != 'pull_request'
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
+
+      # login to github container registry
+      - uses: docker/login-action@v1
+        if: github.event_name != 'pull_request'
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       # build & push image
       - uses: docker/build-push-action@v2
@@ -41,7 +55,9 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           platforms: ${{ env.PLATFORMS }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.IMAGE }}:latest
+          tags: |
+            ghcr.io/${{ steps.image-name.outputs.image }}:latest
+            ${{ steps.image-name.outputs.image }}:latest
 
       # output image digest
       - name: Output image digest
