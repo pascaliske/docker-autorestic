@@ -4,7 +4,7 @@ LABEL maintainer="info@pascaliske.dev"
 WORKDIR /root/
 
 # arguments
-ARG VERSION=1.1.1
+ARG VERSION=1.5.1
 ARG TARGETOS
 ARG TARGETARCH
 ENV CGO_ENABLED=0
