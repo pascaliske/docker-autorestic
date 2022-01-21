@@ -49,7 +49,7 @@ The following bind mounts are required:
 > ```bash
 > docker run --rm \
 >   -v my-volume:/var/lib/autorestic/locations/my-volume \
->   pascaliske/autorestic:latest backup --location my-volume
+>   ghcr.io/pascaliske/autorestic:latest backup --location my-volume
 > ```
 
 Run a backup with the required volume mounts:
@@ -61,7 +61,7 @@ $ docker run --rm \
     -v $(pwd)/my-backend:/var/lib/autorestic/backends/my-backend \
     -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \
     -v my-volume:/var/lib/autorestic/locations/my-volume \
-    pascaliske/autorestic:latest backup --location my-location
+    ghcr.io/pascaliske/autorestic:latest backup --location my-location
 ```
 
 Restore a backup with the required volume mounts. The target folder should be bind mounted as well:
@@ -74,7 +74,7 @@ $ docker run --rm \
     -v $(pwd)/my-location:/var/lib/autorestic/locations/my-location \
     -v my-volume:/var/lib/autorestic/locations/my-volume \
     -v $(pwd)/my-restore:/tmp/my-restore \
-    pascaliske/autorestic:latest restore --location my-location --from my-backend --to /tmp/my-restore
+    ghcr.io/pascaliske/autorestic:latest restore --location my-location --from my-backend --to /tmp/my-restore
 ```
 
 For a list of all commands and their usage [visit the autorestic docs](https://autorestic.vercel.app/). An example usage can be [found here](./example/).
