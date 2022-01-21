@@ -81,4 +81,4 @@ For a list of all commands and their usage [visit the autorestic docs](https://a
 
 ## License
 
-[MIT](LICENSE.md) – © 2021 [Pascal Iske](https://pascaliske.dev)
+[MIT](LICENSE.md) – © 2022 [Pascal Iske](https://pascaliske.dev)
