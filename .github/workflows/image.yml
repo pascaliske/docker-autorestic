@@ -14,14 +14,14 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     env:
+      REPOSITORY: ${{ github.repository }}
       PLATFORMS: linux/amd64,linux/arm/v7,linux/arm64
     steps:
       # build image name
       - name: Build image name
         id: image-name
-        run: echo "::set-output name=image::${REPOSITORY//docker-/}"
-        env:
-          REPOSITORY: ${{ github.repository }}
+        run: |
+          echo "::set-output name=image::${REPOSITORY//docker-/}"
 
       # checkout
       - uses: actions/checkout@v2.4.0
@@ -82,6 +82,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # generate release notes
       - name: Generate release notes
