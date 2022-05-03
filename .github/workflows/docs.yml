@@ -1,0 +1,30 @@
+name: Deploy docs
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  docs:
+    name: Deploy docs
+    runs-on: ubuntu-latest
+    steps:
+      # checkout
+      - uses: actions/checkout@v3
+
+      # create pages for docs
+      - name: Create pages for docs
+        run: |
+          cat README.md >> docs/index.md
+
+          echo "---" > docs/LICENSE.md
+          echo "hide:" >> docs/LICENSE.md
+          echo "  - navigation" >> docs/LICENSE.md
+          echo "---" >> docs/LICENSE.md
+          cat LICENSE.md >> docs/LICENSE.md
+
+      # deploy docs
+      - uses: mhausenblas/mkdocs-deploy-gh-pages@1.24
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
