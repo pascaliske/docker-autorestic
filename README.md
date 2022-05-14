@@ -4,6 +4,25 @@
 
 [![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/pascaliske/autorestic/latest?style=flat-square)](https://hub.docker.com/r/pascaliske/autorestic) [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/pascaliske/autorestic/latest?style=flat-square)](https://hub.docker.com/r/pascaliske/autorestic) [![Docker Pulls](https://img.shields.io/docker/pulls/pascaliske/autorestic?style=flat-square)](https://hub.docker.com/r/pascaliske/autorestic) [![GitHub Tag](https://img.shields.io/github/v/tag/pascaliske/docker-autorestic?style=flat-square)](https://github.com/pascaliske/docker-autorestic) [![Build Status](https://img.shields.io/github/workflow/status/pascaliske/docker-autorestic/Image/master?label=build&style=flat-square)](https://github.com/pascaliske/docker-autorestic/actions) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [![GitHub Last Commit](https://img.shields.io/github/last-commit/pascaliske/docker-autorestic?style=flat-square)](https://github.com/pascaliske/docker-autorestic) [![Awesome Badges](https://img.shields.io/badge/badges-awesome-green.svg?style=flat-square)](https://github.com/Naereen/badges)
 
+## Image
+
+| Registry   | Image                                                                                                                             |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Docker Hub | [`pascaliske/autorestic`](https://hub.docker.com/r/pascaliske/autorestic)                                           |
+| GitHub     | [`ghcr.io/pascaliske/autorestic`](https://github.com/pascaliske/docker-autorestic/pkgs/container/autorestic) |
+
+The following platforms are available for this image:
+
+```bash
+$ docker run --rm mplatform/mquery pascaliske/autorestic:latest
+Image: pascaliske/autorestic:latest
+ * Manifest List: Yes
+ * Supported platforms:
+   - linux/amd64
+   - linux/arm/v7
+   - linux/arm64
+```
+
 ## Usage
 
 To use this image pull it from one of the following registries:
