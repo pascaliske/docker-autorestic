@@ -25,6 +25,6 @@ jobs:
           cat LICENSE.md >> docs/LICENSE.md
 
       # deploy docs
-      - uses: mhausenblas/mkdocs-deploy-gh-pages@1.24
+      - uses: mhausenblas/mkdocs-deploy-gh-pages@1.25
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
