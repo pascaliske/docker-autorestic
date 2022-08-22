@@ -1,5 +1,5 @@
 # builder image
-FROM --platform=${BUILDPLATFORM} golang:alpine AS builder
+FROM --platform=${BUILDPLATFORM} golang:1.19-alpine AS builder
 LABEL maintainer="info@pascaliske.dev"
 WORKDIR /root/
 
@@ -26,7 +26,7 @@ RUN /usr/local/bin/autorestic --version
 RUN autorestic install
 
 # final image
-FROM alpine:latest
+FROM alpine:3.16
 LABEL maintainer="info@pascaliske.dev"
 
 # environment
