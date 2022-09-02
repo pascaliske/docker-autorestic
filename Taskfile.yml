@@ -1,0 +1,16 @@
+version: '3'
+
+includes:
+  setup: ./.github/taskfiles/setup.yml
+  docs: ./.github/taskfiles/docs.yml
+
+tasks:
+  setup:
+    summary: Setup repository from template - Replaces repository name and image name in the entire code base.
+    cmds:
+      - task: setup:default
+
+  docs:
+    summary: Documentation specific tasks.
+    cmds:
+      - task: docs:default
