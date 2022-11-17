@@ -26,7 +26,7 @@ RUN /usr/local/bin/autorestic --version
 RUN autorestic install
 
 # final image
-FROM alpine:3.16
+FROM alpine:3.17
 LABEL maintainer="info@pascaliske.dev"
 
 # environment
