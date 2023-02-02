@@ -1,5 +1,5 @@
 # builder image
-FROM --platform=${BUILDPLATFORM} golang:1.19-alpine AS builder
+FROM --platform=${BUILDPLATFORM} golang:1.20-alpine AS builder
 LABEL maintainer="info@pascaliske.dev"
 WORKDIR /root/
 
