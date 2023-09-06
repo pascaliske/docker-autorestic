@@ -24,7 +24,7 @@ jobs:
           echo "::set-output name=image::${REPOSITORY//docker-/}"
 
       # checkout
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # setup node
       - uses: actions/setup-node@v3.8.1
@@ -120,7 +120,7 @@ jobs:
           REPOSITORY: ${{ github.repository }}
 
       # checkout
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # scan image
       - uses: crazy-max/ghaction-container-scan@v2
