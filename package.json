@@ -26,6 +26,6 @@
     "@commitlint/config-conventional": "^17.2.0",
     "@rstacruz/bump-cli": "^2.0.1",
     "husky": "^8.0.1",
-    "standard-changelog": "^4.0.0"
+    "standard-changelog": "^5.0.0"
   }
 }
