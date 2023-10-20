@@ -22,8 +22,8 @@
     "changelog": "standard-changelog"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.2.0",
-    "@commitlint/config-conventional": "^17.2.0",
+    "@commitlint/cli": "^18.0.0",
+    "@commitlint/config-conventional": "^18.0.0",
     "@rstacruz/bump-cli": "^2.0.1",
     "husky": "^8.0.1",
     "standard-changelog": "^5.0.0"
